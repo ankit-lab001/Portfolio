@@ -1,0 +1,1240 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+        content="Expense Tracker - A personal expense management application created by Ankit Kumar Singh using HTML, CSS, JavaScript, Capacitor and AI-assisted Vibe Coding.">
+
+    <title>Expense Tracker | Ankit Kumar Singh</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #0b0b14;
+            color: #ffffff;
+            line-height: 1.7;
+        }
+
+
+        /* ================= NAVBAR ================= */
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            padding: 18px 8%;
+
+            background: rgba(11, 11, 20, 0.92);
+            backdrop-filter: blur(15px);
+
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: #7c4dff;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            color: white;
+            border: 1px solid #7c4dff;
+            padding: 9px 18px;
+            border-radius: 25px;
+            transition: 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #7c4dff;
+            transform: translateY(-2px);
+        }
+
+
+        /* ================= HERO ================= */
+
+        .hero {
+            min-height: 75vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            text-align: center;
+
+            padding: 80px 20px;
+
+            background:
+                radial-gradient(
+                    circle at top left,
+                    rgba(124,77,255,0.25),
+                    transparent 35%
+                ),
+
+                radial-gradient(
+                    circle at bottom right,
+                    rgba(0,180,255,0.15),
+                    transparent 35%
+                );
+        }
+
+        .hero-content {
+            max-width: 900px;
+        }
+
+        .project-icon {
+            width: 95px;
+            height: 95px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            margin: auto auto 25px;
+
+            font-size: 48px;
+
+            border-radius: 25px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #7c4dff,
+                    #4f8cff
+                );
+
+            box-shadow:
+                0 20px 60px rgba(124,77,255,0.35);
+
+            animation:
+                floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+
+            0%,100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+
+        }
+
+        .hero h1 {
+            font-size: clamp(40px, 7vw, 72px);
+            margin-bottom: 15px;
+        }
+
+        .hero h1 span {
+            color: #8b6cff;
+        }
+
+        .hero-subtitle {
+            font-size: 21px;
+            color: #bdbdc9;
+            max-width: 750px;
+            margin: auto;
+        }
+
+        .hero-buttons {
+            margin-top: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+
+            text-decoration: none;
+
+            padding: 13px 25px;
+            margin: 5px;
+
+            border-radius: 30px;
+
+            font-weight: bold;
+
+            transition: 0.3s;
+        }
+
+        .primary-btn {
+            background: #7c4dff;
+            color: white;
+        }
+
+        .primary-btn:hover {
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 12px 30px rgba(124,77,255,0.35);
+        }
+
+        .secondary-btn {
+            border: 1px solid #55556a;
+            color: white;
+        }
+
+        .secondary-btn:hover {
+            border-color: #7c4dff;
+            transform: translateY(-3px);
+        }
+
+
+        /* ================= GENERAL SECTION ================= */
+
+        .section {
+            padding: 90px 8%;
+            max-width: 1250px;
+            margin: auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title p {
+            color: #8b6cff;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .section-title h2 {
+            font-size: 38px;
+        }
+
+
+        /* ================= ABOUT ================= */
+
+        .about-box {
+            background: #12121f;
+
+            padding: 35px;
+
+            border-radius: 20px;
+
+            border:
+                1px solid rgba(255,255,255,0.08);
+
+            box-shadow:
+                0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        .about-box p {
+            color: #c5c5d0;
+            margin-bottom: 18px;
+        }
+
+
+        /* ================= FEATURES ================= */
+
+        .features {
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    auto-fit,
+                    minmax(230px, 1fr)
+                );
+
+            gap: 20px;
+        }
+
+        .feature-card {
+            background: #12121f;
+
+            padding: 28px;
+
+            border-radius: 18px;
+
+            border:
+                1px solid rgba(255,255,255,0.08);
+
+            transition: 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-7px);
+
+            border-color: #7c4dff;
+
+            box-shadow:
+                0 15px 35px rgba(124,77,255,0.12);
+        }
+
+        .feature-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 8px;
+        }
+
+        .feature-card p {
+            color: #aaaab8;
+            font-size: 15px;
+        }
+
+
+        /* ================= TECHNOLOGIES ================= */
+
+        .technologies {
+            display: flex;
+
+            flex-wrap: wrap;
+
+            justify-content: center;
+
+            gap: 15px;
+        }
+
+        .tech {
+            padding: 12px 22px;
+
+            border-radius: 30px;
+
+            background: #161627;
+
+            border:
+                1px solid #303044;
+
+            color: #d8d8e5;
+
+            transition: 0.3s;
+        }
+
+        .tech:hover {
+            border-color: #7c4dff;
+            transform: translateY(-3px);
+        }
+
+
+        /* ================= SCREENSHOTS ================= */
+
+        .screenshots {
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    auto-fit,
+                    minmax(280px, 1fr)
+                );
+
+            gap: 25px;
+        }
+
+        .screenshot-card {
+            background: #12121f;
+
+            padding: 12px;
+
+            border-radius: 18px;
+
+            border:
+                1px solid rgba(255,255,255,0.08);
+
+            overflow: hidden;
+
+            transition: 0.4s;
+        }
+
+        .screenshot-card:hover {
+            transform:
+                translateY(-8px)
+                scale(1.01);
+
+            border-color: #7c4dff;
+
+            box-shadow:
+                0 20px 50px rgba(0,0,0,0.35);
+        }
+
+        .screenshot-card img {
+            width: 100%;
+
+            height: 420px;
+
+            object-fit: cover;
+
+            display: block;
+
+            border-radius: 12px;
+        }
+
+        .screenshot-card h3 {
+            padding:
+                15px 8px 5px;
+        }
+
+
+        /* ================= VIBE CODING ================= */
+
+        .vibe-box {
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(124,77,255,0.15),
+                    rgba(40,120,255,0.08)
+                );
+
+            border:
+                1px solid rgba(124,77,255,0.35);
+
+            padding: 40px;
+
+            border-radius: 22px;
+        }
+
+        .vibe-box h3 {
+            font-size: 27px;
+            margin-bottom: 15px;
+        }
+
+        .vibe-box p {
+            color: #c8c8d5;
+            margin-bottom: 15px;
+        }
+
+        .vibe-box strong {
+            color: #9b84ff;
+        }
+
+
+        /* ================= DEVELOPMENT ================= */
+
+        .steps {
+            display: grid;
+
+            gap: 18px;
+
+            max-width: 900px;
+
+            margin: auto;
+        }
+
+        .step {
+            display: flex;
+
+            gap: 20px;
+
+            align-items: flex-start;
+
+            background: #12121f;
+
+            padding: 22px;
+
+            border-radius: 16px;
+
+            border:
+                1px solid rgba(255,255,255,0.07);
+        }
+
+        .step-number {
+            min-width: 42px;
+            height: 42px;
+
+            display: flex;
+
+            justify-content: center;
+            align-items: center;
+
+            border-radius: 50%;
+
+            background: #7c4dff;
+
+            font-weight: bold;
+        }
+
+        .step p {
+            color: #b5b5c3;
+        }
+
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 700px) {
+
+            .navbar {
+                padding: 15px 5%;
+            }
+
+            .section {
+                padding: 65px 5%;
+            }
+
+            .hero {
+                padding: 60px 20px;
+            }
+
+            .hero h1 {
+                font-size: 42px;
+            }
+
+            .hero-subtitle {
+                font-size: 17px;
+            }
+
+            .screenshot-card img {
+                height: auto;
+                max-height: 600px;
+            }
+
+            .about-box,
+            .vibe-box {
+                padding: 25px;
+            }
+
+        }
+
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            text-align: center;
+
+            padding: 40px 20px;
+
+            border-top:
+                1px solid rgba(255,255,255,0.08);
+
+            color: #888896;
+        }
+
+        footer strong {
+            color: white;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ================= NAVIGATION ================= -->
+
+    <nav class="navbar">
+
+        <a href="index.html" class="logo">
+            Ankit<span>.</span>
+        </a>
+
+        <a href="index.html#projects" class="back-btn">
+            ← Back to Portfolio
+        </a>
+
+    </nav>
+
+
+    <!-- ================= HERO ================= -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="project-icon">
+                💰
+            </div>
+
+            <h1>
+                Expense <span>Tracker</span>
+            </h1>
+
+            <p class="hero-subtitle">
+                A simple, attractive and user-friendly expense management
+                application designed to help users record, organize and
+                monitor their daily spending.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="#screenshots"
+                    class="btn primary-btn">
+                    View Screenshots
+                </a>
+
+                <a href="#features"
+                    class="btn secondary-btn">
+                    Explore Features
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= ABOUT PROJECT ================= -->
+
+    <section class="section">
+
+        <div class="section-title">
+
+            <p>Project Overview</p>
+
+            <h2>About The Project</h2>
+
+        </div>
+
+        <div class="about-box">
+
+            <p>
+                Expense Tracker is a personal finance management
+                application created to make recording and monitoring
+                everyday expenses simple and convenient.
+            </p>
+
+            <p>
+                The application allows users to enter their expenses,
+                organize their spending and keep track of their financial
+                activities through an easy-to-use interface.
+            </p>
+
+            <p>
+                The project was initially developed as a web application
+                and was later adapted into an Android application using
+                Capacitor.
+            </p>
+
+            <p>
+                The main goal of this project was to build a practical
+                application while improving my understanding of front-end
+                development, JavaScript logic, application design and
+                mobile app deployment.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= FEATURES ================= -->
+
+    <section class="section" id="features">
+
+        <div class="section-title">
+
+            <p>What It Can Do</p>
+
+            <h2>Key Functionalities</h2>
+
+        </div>
+
+
+        <div class="features">
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    ➕
+                </div>
+
+                <h3>Add Expenses</h3>
+
+                <p>
+                    Users can easily record new expenses and enter
+                    the required information.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    📊
+                </div>
+
+                <h3>Track Spending</h3>
+
+                <p>
+                    Monitor spending and understand how much money
+                    is being used.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    🗂️
+                </div>
+
+                <h3>Organize Expenses</h3>
+
+                <p>
+                    Expenses can be organized to make personal
+                    spending easier to understand.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    🧾
+                </div>
+
+                <h3>Expense History</h3>
+
+                <p>
+                    Previously entered expenses can be viewed and
+                    managed from the application.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    📱
+                </div>
+
+                <h3>Mobile Friendly</h3>
+
+                <p>
+                    The interface is designed to work comfortably
+                    on mobile devices.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    ⚡
+                </div>
+
+                <h3>Simple Interface</h3>
+
+                <p>
+                    The application focuses on a clean interface
+                    that is easy for users to understand.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= TECHNOLOGIES ================= -->
+
+    <section class="section">
+
+        <div class="section-title">
+
+            <p>Built With</p>
+
+            <h2>Technologies Used</h2>
+
+        </div>
+
+
+        <div class="technologies">
+
+            <span class="tech">
+                HTML5
+            </span>
+
+            <span class="tech">
+                CSS3
+            </span>
+
+            <span class="tech">
+                JavaScript
+            </span>
+
+            <span class="tech">
+                Capacitor
+            </span>
+
+            <span class="tech">
+                Responsive Design
+            </span>
+
+            <span class="tech">
+                AI-Assisted Development
+            </span>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= SCREENSHOTS ================= -->
+
+    <section class="section"
+        id="screenshots">
+
+        <div class="section-title">
+
+            <p>Project Preview</p>
+
+            <h2>Application Screenshots</h2>
+
+        </div>
+
+
+        <div class="screenshots">
+
+
+            <!-- SCREENSHOT 1 -->
+
+            <div class="screenshot-card">
+
+                <a href="ss1.jpg"
+                    target="_blank">
+
+                    <img src="ss1.jpg"
+                        alt="Expense Tracker Screenshot 1">
+
+                </a>
+
+                <h3>
+                    Screenshot 1
+                </h3>
+
+            </div>
+
+
+            <!-- SCREENSHOT 2 -->
+
+            <div class="screenshot-card">
+
+                <a href="ss2.jpg"
+                    target="_blank">
+
+                    <img src="ss2.jpg"
+                        alt="Expense Tracker Screenshot 2">
+
+                </a>
+
+                <h3>
+                    Screenshot 2
+                </h3>
+
+            </div>
+
+
+            <!-- SCREENSHOT 3 -->
+
+            <div class="screenshot-card">
+
+                <a href="ss3.jpg"
+                    target="_blank">
+
+                    <img src="ss3.jpg"
+                        alt="Expense Tracker Screenshot 3">
+
+                </a>
+
+                <h3>
+                    Screenshot 3
+                </h3>
+
+            </div>
+
+
+            <!-- SCREENSHOT 4 -->
+
+            <div class="screenshot-card">
+
+                <a href="ss4.jpg"
+                    target="_blank">
+
+                    <img src="ss4.jpg"
+                        alt="Expense Tracker Screenshot 4">
+
+                </a>
+
+                <h3>
+                    Screenshot 4
+                </h3>
+
+            </div>
+
+
+            <!-- SCREENSHOT 5 -->
+
+            <div class="screenshot-card">
+
+                <a href="ss5.jpg"
+                    target="_blank">
+
+                    <img src="ss5.jpg"
+                        alt="Expense Tracker Screenshot 5">
+
+                </a>
+
+                <h3>
+                    Screenshot 5
+                </h3>
+
+            </div>
+
+
+            <!-- SCREENSHOT 6 -->
+
+            <div class="screenshot-card">
+
+                <a href="ss6.jpg"
+                    target="_blank">
+
+                    <img src="ss6.jpg"
+                        alt="Expense Tracker Screenshot 6">
+
+                </a>
+
+                <h3>
+                    Screenshot 6
+                </h3>
+
+            </div>
+
+
+            <!-- SCREENSHOT 7 -->
+
+            <div class="screenshot-card">
+
+                <a href="ss7.jpeg"
+                    target="_blank">
+
+                    <img src="ss7.jpeg"
+                        alt="Expense Tracker Screenshot 7">
+
+                </a>
+
+                <h3>
+                    Screenshot 7
+                </h3>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= VIBE CODING ================= -->
+
+    <section class="section">
+
+        <div class="section-title">
+
+            <p>Development Approach</p>
+
+            <h2>Built Using Vibe Coding</h2>
+
+        </div>
+
+
+        <div class="vibe-box">
+
+            <h3>
+                🤖 AI-Assisted Vibe Coding
+            </h3>
+
+            <p>
+                This project was developed using a
+                <strong>Vibe Coding</strong> approach.
+            </p>
+
+            <p>
+                I designed the project idea, decided the required
+                functionality and worked on the overall development
+                process while using AI tools, including ChatGPT,
+                as a coding assistant.
+            </p>
+
+            <p>
+                AI assistance was used for tasks such as generating
+                and improving code, debugging errors, understanding
+                technical concepts, improving the user interface and
+                helping implement different project features.
+            </p>
+
+            <p>
+                The development process was iterative: I tested the
+                application, identified problems, made changes and
+                continued improving the project until the desired
+                result was achieved.
+            </p>
+
+            <p>
+                <strong>
+                    Vibe Coding was used as a development aid,
+                    while the project direction, testing, decisions
+                    and implementation process were actively handled
+                    by me.
+                </strong>
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= DEVELOPMENT PROCESS ================= -->
+
+    <section class="section">
+
+        <div class="section-title">
+
+            <p>How It Was Developed</p>
+
+            <h2>Development Process</h2>
+
+        </div>
+
+
+        <div class="steps">
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    1
+                </div>
+
+                <div>
+
+                    <h3>
+                        Project Planning
+                    </h3>
+
+                    <p>
+                        Planned the purpose of the application,
+                        required features and overall user experience.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    2
+                </div>
+
+                <div>
+
+                    <h3>
+                        Frontend Development
+                    </h3>
+
+                    <p>
+                        Created the application interface using HTML,
+                        CSS and JavaScript.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    3
+                </div>
+
+                <div>
+
+                    <h3>
+                        Functionality
+                    </h3>
+
+                    <p>
+                        Implemented expense-related functionality
+                        and JavaScript logic.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    4
+                </div>
+
+                <div>
+
+                    <h3>
+                        Testing & Debugging
+                    </h3>
+
+                    <p>
+                        Tested different features, identified errors
+                        and fixed issues during development.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    5
+                </div>
+
+                <div>
+
+                    <h3>
+                        Mobile Conversion
+                    </h3>
+
+                    <p>
+                        Used Capacitor to package the web application
+                        as an Android application.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    6
+                </div>
+
+                <div>
+
+                    <h3>
+                        Final Improvements
+                    </h3>
+
+                    <p>
+                        Improved the interface, responsiveness,
+                        usability and overall appearance of the project.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= PROJECT HIGHLIGHTS ================= -->
+
+    <section class="section">
+
+        <div class="section-title">
+
+            <p>Project Highlights</p>
+
+            <h2>What I Learned</h2>
+
+        </div>
+
+
+        <div class="about-box">
+
+            <p>
+                Through this project, I improved my understanding of
+                HTML, CSS and JavaScript-based application development.
+            </p>
+
+            <p>
+                I learned how different parts of a front-end application
+                work together to create a functional user experience.
+            </p>
+
+            <p>
+                I also gained practical experience with debugging,
+                responsive design, application testing and converting
+                a web project into an Android application using Capacitor.
+            </p>
+
+            <p>
+                Most importantly, the project helped me understand how
+                AI-assisted development and Vibe Coding can be used as
+                tools to accelerate learning and project development.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <p>
+            <strong>
+                Expense Tracker
+            </strong>
+            • Developed by Ankit Kumar Singh
+        </p>
+
+        <p>
+            BCA Student • Programmer • Web Developer • Technology Enthusiast
+        </p>
+
+        <br>
+
+        <a href="index.html"
+            class="back-btn">
+
+            ← Back to Portfolio
+
+        </a>
+
+    </footer>
+
+
+</body>
+
+</html>
+
