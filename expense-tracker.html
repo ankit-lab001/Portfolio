@@ -1,0 +1,1787 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+        content="Expense Tracker - A personal expense management application created by Ankit Kumar Singh using HTML, CSS, JavaScript, Capacitor and AI-assisted Vibe Coding.">
+
+    <title>Expense Tracker | Ankit Kumar Singh</title>
+
+   <style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+:root {
+    --bg: #f7f9ff;
+    --text: #111827;
+    --muted: #64748b;
+
+    --purple: #6c3cff;
+    --blue: #00b7ff;
+    --pink: #ff3cac;
+    --orange: #ff9f43;
+
+    --glass: rgba(255,255,255,.72);
+    --border: rgba(108,60,255,.14);
+
+    --shadow:
+        0 25px 70px rgba(50,40,120,.10);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+
+    color: var(--text);
+
+    line-height: 1.7;
+
+    overflow-x: hidden;
+
+    background:
+        linear-gradient(rgba(108,60,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(108,60,255,.035) 1px, transparent 1px),
+        radial-gradient(circle at 10% 10%, rgba(108,60,255,.13), transparent 30%),
+        radial-gradient(circle at 90% 20%, rgba(0,183,255,.12), transparent 28%),
+        radial-gradient(circle at 50% 100%, rgba(255,60,172,.10), transparent 35%),
+        var(--bg);
+
+    background-size:
+        45px 45px,
+        45px 45px,
+        auto,
+        auto,
+        auto;
+
+    animation: backgroundMove 18s linear infinite;
+
+    position: relative;
+}
+
+@keyframes backgroundMove {
+    from {
+        background-position:
+            0 0,
+            0 0,
+            0 0,
+            0 0,
+            0 0;
+    }
+
+    to {
+        background-position:
+            45px 45px,
+            45px 45px,
+            0 0,
+            0 0,
+            0 0;
+    }
+}
+
+/* FLOATING GLOW */
+
+body::before {
+    content: "";
+
+    position: fixed;
+
+    width: 500px;
+    height: 500px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(108,60,255,.20),
+            transparent 70%
+        );
+
+    filter: blur(20px);
+
+    top: -220px;
+    left: -180px;
+
+    animation: glowMove 10s ease-in-out infinite;
+
+    z-index: -2;
+}
+
+body::after {
+    content: "";
+
+    position: fixed;
+
+    width: 500px;
+    height: 500px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(0,183,255,.17),
+            transparent 70%
+        );
+
+    filter: blur(20px);
+
+    right: -200px;
+    bottom: -220px;
+
+    animation: glowMove2 12s ease-in-out infinite;
+
+    z-index: -2;
+}
+
+@keyframes glowMove {
+    0%,100% {
+        transform: translate(0,0);
+    }
+
+    50% {
+        transform: translate(130px,120px);
+    }
+}
+
+@keyframes glowMove2 {
+    0%,100% {
+        transform: translate(0,0);
+    }
+
+    50% {
+        transform: translate(-120px,-100px);
+    }
+}
+
+/* NAVBAR */
+
+.navbar {
+    position: sticky;
+
+    top: 0;
+
+    z-index: 1000;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 18px 8%;
+
+    background: rgba(255,255,255,.75);
+
+    backdrop-filter: blur(20px);
+
+    border-bottom:
+        1px solid rgba(108,60,255,.12);
+
+    box-shadow:
+        0 10px 35px rgba(50,40,120,.06);
+}
+
+.logo {
+    font-family: 'Space Grotesk', sans-serif;
+
+    font-size: 27px;
+
+    font-weight: 800;
+
+    color: var(--text);
+
+    text-decoration: none;
+}
+
+.logo span {
+    color: var(--purple);
+}
+
+.back-btn {
+    text-decoration: none;
+
+    color: var(--text);
+
+    border:
+        1px solid rgba(108,60,255,.18);
+
+    padding: 10px 20px;
+
+    border-radius: 30px;
+
+    background: rgba(255,255,255,.65);
+
+    backdrop-filter: blur(10px);
+
+    transition: .35s;
+
+    font-weight: 600;
+}
+
+.back-btn:hover {
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--purple),
+            var(--blue)
+        );
+
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 12px 30px rgba(108,60,255,.25);
+}
+
+/* HERO */
+
+.hero {
+    min-height: 75vh;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+
+    padding: 90px 20px;
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+.hero::before {
+    content: "";
+
+    position: absolute;
+
+    width: 350px;
+    height: 350px;
+
+    border-radius: 50%;
+
+    border: 1px solid rgba(108,60,255,.12);
+
+    animation: heroRing 12s linear infinite;
+}
+
+.hero::after {
+    content: "";
+
+    position: absolute;
+
+    width: 550px;
+    height: 550px;
+
+    border-radius: 50%;
+
+    border:
+        1px dashed rgba(0,183,255,.12);
+
+    animation: heroRingReverse 18s linear infinite;
+}
+
+@keyframes heroRing {
+    to {
+        transform: rotate(360deg) scale(1.08);
+    }
+}
+
+@keyframes heroRingReverse {
+    to {
+        transform: rotate(-360deg);
+    }
+}
+
+.hero-content {
+    max-width: 900px;
+
+    position: relative;
+
+    z-index: 2;
+
+    animation: heroAppear 1s ease;
+}
+
+@keyframes heroAppear {
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(40px)
+            scale(.97);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+/* PROJECT ICON */
+
+.project-icon {
+    width: 105px;
+    height: 105px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    margin: auto auto 28px;
+
+    font-size: 50px;
+
+    border-radius: 30px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--purple),
+            var(--blue)
+        );
+
+    box-shadow:
+        0 25px 60px rgba(108,60,255,.25);
+
+    animation:
+        iconFloat 3s ease-in-out infinite;
+
+    position: relative;
+}
+
+.project-icon::after {
+    content: "";
+
+    position: absolute;
+
+    inset: -8px;
+
+    border-radius: 34px;
+
+    border: 1px solid rgba(108,60,255,.25);
+
+    animation: iconPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes iconFloat {
+    0%,100% {
+        transform: translateY(0) rotate(0);
+    }
+
+    50% {
+        transform: translateY(-10px) rotate(3deg);
+    }
+}
+
+@keyframes iconPulse {
+    0%,100% {
+        transform: scale(1);
+
+        opacity: .4;
+    }
+
+    50% {
+        transform: scale(1.08);
+
+        opacity: 1;
+    }
+}
+
+/* HERO TITLE */
+
+.hero h1 {
+    font-family: 'Space Grotesk', sans-serif;
+
+    font-size: clamp(42px, 7vw, 76px);
+
+    line-height: 1.05;
+
+    margin-bottom: 18px;
+}
+
+.hero h1 span {
+    background:
+        linear-gradient(
+            90deg,
+            var(--purple),
+            var(--blue),
+            var(--pink),
+            var(--orange)
+        );
+
+    background-size: 300% auto;
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    color: transparent;
+
+    animation: gradientText 6s linear infinite;
+}
+
+@keyframes gradientText {
+    to {
+        background-position: 300% center;
+    }
+}
+
+.hero-subtitle {
+    font-size: 20px;
+
+    color: var(--muted);
+
+    max-width: 750px;
+
+    margin: auto;
+}
+
+/* BUTTONS */
+
+.hero-buttons {
+    margin-top: 32px;
+}
+
+.btn {
+    display: inline-block;
+
+    text-decoration: none;
+
+    padding: 14px 27px;
+
+    margin: 6px;
+
+    border-radius: 30px;
+
+    font-weight: 700;
+
+    transition: .35s;
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+.primary-btn {
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--purple),
+            var(--blue)
+        );
+
+    box-shadow:
+        0 15px 35px rgba(108,60,255,.22);
+}
+
+.primary-btn:hover {
+    transform:
+        translateY(-5px)
+        scale(1.03);
+
+    box-shadow:
+        0 20px 45px rgba(108,60,255,.30);
+}
+
+.secondary-btn {
+    color: var(--text);
+
+    background: rgba(255,255,255,.75);
+
+    border:
+        1px solid rgba(108,60,255,.18);
+
+    backdrop-filter: blur(10px);
+}
+
+.secondary-btn:hover {
+    transform: translateY(-5px);
+
+    border-color: var(--purple);
+
+    box-shadow:
+        0 15px 35px rgba(108,60,255,.12);
+}
+
+/* GENERAL SECTIONS */
+
+.section {
+    padding: 95px 8%;
+
+    max-width: 1250px;
+
+    margin: auto;
+}
+
+.section-title {
+    text-align: center;
+
+    margin-bottom: 50px;
+}
+
+.section-title p {
+    color: var(--purple);
+
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+
+    margin-bottom: 6px;
+}
+
+.section-title h2 {
+    font-family: 'Space Grotesk', sans-serif;
+
+    font-size: 40px;
+}
+
+/* GLASS BOX */
+
+.about-box {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.82),
+            rgba(245,248,255,.65)
+        );
+
+    padding: 38px;
+
+    border-radius: 26px;
+
+    border:
+        1px solid var(--border);
+
+    box-shadow: var(--shadow);
+
+    backdrop-filter: blur(15px);
+
+    transition: .4s;
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+.about-box::before {
+    content: "";
+
+    position: absolute;
+
+    width: 220px;
+    height: 220px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(108,60,255,.12),
+            transparent
+        );
+
+    right: -100px;
+    top: -100px;
+}
+
+.about-box:hover {
+    transform: translateY(-8px);
+
+    box-shadow:
+        0 30px 80px rgba(50,40,120,.14);
+}
+
+.about-box p {
+    color: #526176;
+
+    margin-bottom: 18px;
+
+    position: relative;
+}
+
+/* FEATURES */
+
+.features {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(230px,1fr)
+        );
+
+    gap: 24px;
+}
+
+.feature-card {
+    background:
+        rgba(255,255,255,.72);
+
+    padding: 30px;
+
+    border-radius: 24px;
+
+    border:
+        1px solid var(--border);
+
+    box-shadow:
+        0 15px 45px rgba(50,40,120,.07);
+
+    transition: .4s;
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+.feature-card::before {
+    content: "";
+
+    position: absolute;
+
+    width: 120px;
+    height: 120px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(108,60,255,.15),
+            transparent
+        );
+
+    right: -50px;
+    top: -50px;
+}
+
+.feature-card:hover {
+    transform:
+        translateY(-12px)
+        rotateX(2deg);
+
+    border-color:
+        rgba(108,60,255,.35);
+
+    box-shadow:
+        0 25px 60px rgba(108,60,255,.13);
+}
+
+.feature-icon {
+    font-size: 34px;
+
+    margin-bottom: 14px;
+
+    display: inline-block;
+
+    animation:
+        featureFloat 3s ease-in-out infinite;
+}
+
+@keyframes featureFloat {
+    0%,100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+.feature-card h3 {
+    font-family: 'Space Grotesk', sans-serif;
+
+    margin-bottom: 8px;
+}
+
+.feature-card p {
+    color: var(--muted);
+
+    font-size: 15px;
+}
+
+/* TECHNOLOGIES */
+
+.technologies {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    justify-content: center;
+
+    gap: 15px;
+}
+
+.tech {
+    padding: 12px 22px;
+
+    border-radius: 30px;
+
+    background:
+        rgba(255,255,255,.75);
+
+    border:
+        1px solid rgba(108,60,255,.16);
+
+    color: var(--text);
+
+    box-shadow:
+        0 8px 25px rgba(50,40,120,.06);
+
+    transition: .35s;
+}
+
+.tech:hover {
+    transform:
+        translateY(-5px)
+        scale(1.04);
+
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--purple),
+            var(--blue)
+        );
+
+    box-shadow:
+        0 12px 30px rgba(108,60,255,.20);
+}
+
+/* SCREENSHOTS */
+
+.screenshots {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(280px,1fr)
+        );
+
+    gap: 28px;
+}
+
+.screenshot-card {
+    background:
+        rgba(255,255,255,.75);
+
+    padding: 12px;
+
+    border-radius: 24px;
+
+    border:
+        1px solid var(--border);
+
+    overflow: hidden;
+
+    transition: .45s;
+
+    box-shadow:
+        0 15px 45px rgba(50,40,120,.08);
+}
+
+.screenshot-card:hover {
+    transform:
+        translateY(-12px)
+        scale(1.015);
+
+    border-color:
+        rgba(108,60,255,.35);
+
+    box-shadow:
+        0 30px 70px rgba(108,60,255,.15);
+}
+
+.screenshot-card img {
+    width: 100%;
+
+    height: 420px;
+
+    object-fit: cover;
+
+    display: block;
+
+    border-radius: 16px;
+
+    transition: .5s;
+}
+
+.screenshot-card:hover img {
+    transform: scale(1.025);
+}
+
+.screenshot-card h3 {
+    padding:
+        15px 8px 7px;
+
+    font-family:
+        'Space Grotesk',
+        sans-serif;
+}
+
+/* VIBE CODING */
+
+.vibe-box {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(108,60,255,.10),
+            rgba(0,183,255,.08),
+            rgba(255,60,172,.06)
+        );
+
+    border:
+        1px solid rgba(108,60,255,.22);
+
+    padding: 42px;
+
+    border-radius: 28px;
+
+    box-shadow:
+        0 25px 70px rgba(108,60,255,.08);
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+.vibe-box::before {
+    content: "";
+
+    position: absolute;
+
+    width: 250px;
+    height: 250px;
+
+    border-radius: 50%;
+
+    border:
+        1px solid rgba(108,60,255,.15);
+
+    right: -100px;
+    top: -100px;
+
+    animation: vibeOrbit 12s linear infinite;
+}
+
+@keyframes vibeOrbit {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.vibe-box h3 {
+    font-family: 'Space Grotesk', sans-serif;
+
+    font-size: 28px;
+
+    margin-bottom: 16px;
+}
+
+.vibe-box p {
+    color: #526176;
+
+    margin-bottom: 15px;
+
+    position: relative;
+}
+
+.vibe-box strong {
+    color: var(--purple);
+}
+
+/* DEVELOPMENT STEPS */
+
+.steps {
+    display: grid;
+
+    gap: 20px;
+
+    max-width: 900px;
+
+    margin: auto;
+}
+
+.step {
+    display: flex;
+
+    gap: 20px;
+
+    align-items: flex-start;
+
+    background:
+        rgba(255,255,255,.75);
+
+    padding: 24px;
+
+    border-radius: 22px;
+
+    border:
+        1px solid var(--border);
+
+    box-shadow:
+        0 12px 35px rgba(50,40,120,.06);
+
+    transition: .4s;
+}
+
+.step:hover {
+    transform:
+        translateX(8px)
+        translateY(-4px);
+
+    border-color:
+        rgba(108,60,255,.3);
+
+    box-shadow:
+        0 20px 50px rgba(108,60,255,.12);
+}
+
+.step-number {
+    min-width: 46px;
+
+    height: 46px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    border-radius: 50%;
+
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--purple),
+            var(--blue)
+        );
+
+    font-weight: 800;
+
+    box-shadow:
+        0 10px 25px rgba(108,60,255,.22);
+
+    animation:
+        numberPulse 3s ease-in-out infinite;
+}
+
+@keyframes numberPulse {
+    0%,100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.07);
+    }
+}
+
+.step h3 {
+    font-family: 'Space Grotesk', sans-serif;
+
+    margin-bottom: 5px;
+}
+
+.step p {
+    color: var(--muted);
+}
+
+/* FOOTER */
+
+footer {
+    text-align: center;
+
+    padding: 45px 20px;
+
+    border-top:
+        1px solid rgba(108,60,255,.10);
+
+    color: var(--muted);
+
+    background:
+        rgba(255,255,255,.55);
+
+    backdrop-filter: blur(15px);
+}
+
+footer strong {
+    color: var(--text);
+}
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+
+    .navbar {
+        padding: 15px 5%;
+    }
+
+    .section {
+        padding: 65px 5%;
+    }
+
+    .hero {
+        padding: 70px 20px;
+    }
+
+    .hero h1 {
+        font-size: 45px;
+    }
+
+    .hero-subtitle {
+        font-size: 17px;
+    }
+
+    .section-title h2 {
+        font-size: 32px;
+    }
+
+    .screenshot-card img {
+        height: auto;
+        max-height: 600px;
+    }
+
+    .about-box,
+    .vibe-box {
+        padding: 25px;
+    }
+
+    .step {
+        padding: 20px;
+    }
+}
+</style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ================= NAVIGATION ================= -->
+
+    <nav class="navbar">
+
+        <a href="index.html" class="logo">
+            Ankit<span>.</span>
+        </a>
+
+        <a href="index.html#projects" class="back-btn">
+            ← Back to Portfolio
+        </a>
+
+    </nav>
+
+
+    <!-- ================= HERO ================= -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="project-icon">
+                💰
+            </div>
+
+            <h1>
+                Expense <span>Tracker</span>
+            </h1>
+
+            <p class="hero-subtitle">
+                A simple, attractive and user-friendly expense management
+                application designed to help users record, organize and
+                monitor their daily spending.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="#screenshots"
+                    class="btn primary-btn">
+                    View Screenshots
+                </a>
+
+                <a href="#features"
+                    class="btn secondary-btn">
+                    Explore Features
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= ABOUT PROJECT ================= -->
+
+    <section class="section">
+
+        <div class="section-title">
+
+            <p>Project Overview</p>
+
+            <h2>About The Project</h2>
+
+        </div>
+
+        <div class="about-box">
+
+            <p>
+                Expense Tracker is a personal finance management
+                application created to make recording and monitoring
+                everyday expenses simple and convenient.
+            </p>
+
+            <p>
+                The application allows users to enter their expenses,
+                organize their spending and keep track of their financial
+                activities through an easy-to-use interface.
+            </p>
+
+            <p>
+                The project was initially developed as a web application
+                and was later adapted into an Android application using
+                Capacitor.
+            </p>
+
+            <p>
+                The main goal of this project was to build a practical
+                application while improving my understanding of front-end
+                development, JavaScript logic, application design and
+                mobile app deployment.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= FEATURES ================= -->
+
+    <section class="section" id="features">
+
+        <div class="section-title">
+
+            <p>What It Can Do</p>
+
+            <h2>Key Functionalities</h2>
+
+        </div>
+
+
+        <div class="features">
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    ➕
+                </div>
+
+                <h3>Add Expenses</h3>
+
+                <p>
+                    Users can easily record new expenses and enter
+                    the required information.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    📊
+                </div>
+
+                <h3>Track Spending</h3>
+
+                <p>
+                    Monitor spending and understand how much money
+                    is being used.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    🗂️
+                </div>
+
+                <h3>Organize Expenses</h3>
+
+                <p>
+                    Expenses can be organized to make personal
+                    spending easier to understand.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    🧾
+                </div>
+
+                <h3>Expense History</h3>
+
+                <p>
+                    Previously entered expenses can be viewed and
+                    managed from the application.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    📱
+                </div>
+
+                <h3>Mobile Friendly</h3>
+
+                <p>
+                    The interface is designed to work comfortably
+                    on mobile devices.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    ⚡
+                </div>
+
+                <h3>Simple Interface</h3>
+
+                <p>
+                    The application focuses on a clean interface
+                    that is easy for users to understand.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= TECHNOLOGIES ================= -->
+
+    <section class="section">
+
+        <div class="section-title">
+
+            <p>Built With</p>
+
+            <h2>Technologies Used</h2>
+
+        </div>
+
+
+        <div class="technologies">
+
+            <span class="tech">
+                HTML5
+            </span>
+
+            <span class="tech">
+                CSS3
+            </span>
+
+            <span class="tech">
+                JavaScript
+            </span>
+
+            <span class="tech">
+                Capacitor
+            </span>
+
+            <span class="tech">
+                Responsive Design
+            </span>
+
+            <span class="tech">
+                AI-Assisted Development
+            </span>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= SCREENSHOTS ================= -->
+
+    <section class="section"
+        id="screenshots">
+
+        <div class="section-title">
+
+            <p>Project Preview</p>
+
+            <h2>Application Screenshots</h2>
+
+        </div>
+
+
+        <div class="screenshots">
+
+
+            <!-- SCREENSHOT 1 -->
+
+            <div class="screenshot-card">
+
+                <a href="ss1.jpg"
+                    target="_blank">
+
+                    <img src="ss1.jpg"
+                        alt="Expense Tracker Screenshot 1">
+
+                </a>
+
+                <h3>
+                    Screenshot 1
+                </h3>
+
+            </div>
+
+
+            <!-- SCREENSHOT 2 -->
+
+            <div class="screenshot-card">
+
+                <a href="ss2.jpg"
+                    target="_blank">
+
+                    <img src="ss2.jpg"
+                        alt="Expense Tracker Screenshot 2">
+
+                </a>
+
+                <h3>
+                    Screenshot 2
+                </h3>
+
+            </div>
+
+
+            <!-- SCREENSHOT 3 -->
+
+            <div class="screenshot-card">
+
+                <a href="ss3.jpg"
+                    target="_blank">
+
+                    <img src="ss3.jpg"
+                        alt="Expense Tracker Screenshot 3">
+
+                </a>
+
+                <h3>
+                    Screenshot 3
+                </h3>
+
+            </div>
+
+
+            <!-- SCREENSHOT 4 -->
+
+            <div class="screenshot-card">
+
+                <a href="ss4.jpg"
+                    target="_blank">
+
+                    <img src="ss4.jpg"
+                        alt="Expense Tracker Screenshot 4">
+
+                </a>
+
+                <h3>
+                    Screenshot 4
+                </h3>
+
+            </div>
+
+
+            <!-- SCREENSHOT 5 -->
+
+            <div class="screenshot-card">
+
+                <a href="ss5.jpg"
+                    target="_blank">
+
+                    <img src="ss5.jpg"
+                        alt="Expense Tracker Screenshot 5">
+
+                </a>
+
+                <h3>
+                    Screenshot 5
+                </h3>
+
+            </div>
+
+
+            <!-- SCREENSHOT 6 -->
+
+            <div class="screenshot-card">
+
+                <a href="ss6.jpg"
+                    target="_blank">
+
+                    <img src="ss6.jpg"
+                        alt="Expense Tracker Screenshot 6">
+
+                </a>
+
+                <h3>
+                    Screenshot 6
+                </h3>
+
+            </div>
+
+
+            <!-- SCREENSHOT 7 -->
+
+            <div class="screenshot-card">
+
+                <a href="ss7.jpeg"
+                    target="_blank">
+
+                    <img src="ss7.jpeg"
+                        alt="Expense Tracker Screenshot 7">
+
+                </a>
+
+                <h3>
+                    Screenshot 7
+                </h3>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= VIBE CODING ================= -->
+
+    <section class="section">
+
+        <div class="section-title">
+
+            <p>Development Approach</p>
+
+            <h2>Built Using Vibe Coding</h2>
+
+        </div>
+
+
+        <div class="vibe-box">
+
+            <h3>
+                🤖 AI-Assisted Vibe Coding
+            </h3>
+
+            <p>
+                This project was developed using a
+                <strong>Vibe Coding</strong> approach.
+            </p>
+
+            <p>
+                I designed the project idea, decided the required
+                functionality and worked on the overall development
+                process while using AI tools, including ChatGPT,
+                as a coding assistant.
+            </p>
+
+            <p>
+                AI assistance was used for tasks such as generating
+                and improving code, debugging errors, understanding
+                technical concepts, improving the user interface and
+                helping implement different project features.
+            </p>
+
+            <p>
+                The development process was iterative: I tested the
+                application, identified problems, made changes and
+                continued improving the project until the desired
+                result was achieved.
+            </p>
+
+            <p>
+                <strong>
+                    Vibe Coding was used as a development aid,
+                    while the project direction, testing, decisions
+                    and implementation process were actively handled
+                    by me.
+                </strong>
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= DEVELOPMENT PROCESS ================= -->
+
+    <section class="section">
+
+        <div class="section-title">
+
+            <p>How It Was Developed</p>
+
+            <h2>Development Process</h2>
+
+        </div>
+
+
+        <div class="steps">
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    1
+                </div>
+
+                <div>
+
+                    <h3>
+                        Project Planning
+                    </h3>
+
+                    <p>
+                        Planned the purpose of the application,
+                        required features and overall user experience.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    2
+                </div>
+
+                <div>
+
+                    <h3>
+                        Frontend Development
+                    </h3>
+
+                    <p>
+                        Created the application interface using HTML,
+                        CSS and JavaScript.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    3
+                </div>
+
+                <div>
+
+                    <h3>
+                        Functionality
+                    </h3>
+
+                    <p>
+                        Implemented expense-related functionality
+                        and JavaScript logic.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    4
+                </div>
+
+                <div>
+
+                    <h3>
+                        Testing & Debugging
+                    </h3>
+
+                    <p>
+                        Tested different features, identified errors
+                        and fixed issues during development.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    5
+                </div>
+
+                <div>
+
+                    <h3>
+                        Mobile Conversion
+                    </h3>
+
+                    <p>
+                        Used Capacitor to package the web application
+                        as an Android application.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    6
+                </div>
+
+                <div>
+
+                    <h3>
+                        Final Improvements
+                    </h3>
+
+                    <p>
+                        Improved the interface, responsiveness,
+                        usability and overall appearance of the project.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= PROJECT HIGHLIGHTS ================= -->
+
+    <section class="section">
+
+        <div class="section-title">
+
+            <p>Project Highlights</p>
+
+            <h2>What I Learned</h2>
+
+        </div>
+
+
+        <div class="about-box">
+
+            <p>
+                Through this project, I improved my understanding of
+                HTML, CSS and JavaScript-based application development.
+            </p>
+
+            <p>
+                I learned how different parts of a front-end application
+                work together to create a functional user experience.
+            </p>
+
+            <p>
+                I also gained practical experience with debugging,
+                responsive design, application testing and converting
+                a web project into an Android application using Capacitor.
+            </p>
+
+            <p>
+                Most importantly, the project helped me understand how
+                AI-assisted development and Vibe Coding can be used as
+                tools to accelerate learning and project development.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <p>
+            <strong>
+                Expense Tracker
+            </strong>
+            • Developed by Ankit Kumar Singh
+        </p>
+
+        <p>
+            BCA Student • Programmer • Web Developer • Technology Enthusiast
+        </p>
+
+        <br>
+
+        <a href="index.html"
+            class="back-btn">
+
+            ← Back to Portfolio
+
+        </a>
+
+    </footer>
+<script src="script.js"></script>
+
+</body>
+
+</html>
+
